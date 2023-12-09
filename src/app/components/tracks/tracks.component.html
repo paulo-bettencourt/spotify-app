@@ -1,0 +1,6 @@
+@if(trackInfo) {
+<h1>{{ trackInfo.name }}</h1>
+<p>Artists: {{ getArtistsNames() }}</p>
+<img [src]="getAlbumCoverUrl()" alt="Album Cover" />
+<p>{{ getArtistBiography() }}</p>
+}
