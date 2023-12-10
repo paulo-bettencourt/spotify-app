@@ -11,19 +11,20 @@ export class ApiService {
   private CLIENT_SECRET = '475518206a27420da2676d6bf240779b';
   private LAST_FM_API_KEY = '20dd22a56594733b14fecd57de7a42ec';
   private bearerKey!: string;
+  url = 'https://api.spotify.com/v1/search';
 
   getBearerKey() {
     const url = 'https://accounts.spotify.com/api/token';
     const paramsString = new HttpParams()
-    .set('grant_type', 'client_credentials')
-    .set('client_id', this.CLIENT_ID)
-    .set('client_secret', this.CLIENT_SECRET)
-    .toString();
+      .set('grant_type', 'client_credentials')
+      .set('client_id', this.CLIENT_ID)
+      .set('client_secret', this.CLIENT_SECRET)
+      .toString();
     const headers = new HttpHeaders({
       'Content-Type': 'application/x-www-form-urlencoded',
     });
 
-    return this.http.post(url, paramsString, { headers })
+    return this.http.post(url, paramsString, { headers });
   }
 
   private getHeaders(): HttpHeaders {
@@ -63,6 +64,15 @@ export class ApiService {
 
     return this.http.get(url, { params });
   }
+
+  searchSpotify(artist: string) {
+    const params = new HttpParams().set('q', artist).set('type', 'track');
+
+    return this.getBearerKey().pipe(
+      mergeMap((response: any) => {
+        this.bearerKey = response.access_token;
+        return this.http.get(this.url, { headers: this.getHeaders(), params });
+      })
+    );
+  }
 }
-
-
