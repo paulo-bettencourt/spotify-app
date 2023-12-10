@@ -1,5 +1,6 @@
 import { HttpClientModule } from '@angular/common/http';
-import { Component, inject, Input, signal } from '@angular/core';
+import { Component, inject, Injector, Input } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
 
 import { ApiService } from '../../services/api.service';
 
@@ -16,28 +17,21 @@ export class TracksComponent {
   apiService = inject(ApiService);
   trackId = '3wBy12K7BHKHJspUwJw8fq';
   playlistId = '12TqMgaZKMw6RF39JK6eeF';
-  trackInfo = signal<any>(undefined);
-  artistName = signal<any>('');
-  artistAlbumCoverUrl = signal<any>('');
-  artistBiography = signal<any>('');
-  searchResults = signal<any>(undefined);
+  private injector = inject(Injector);
+  tracksAndBiography = toSignal(this.apiService.searchSpotify("Madonna"));;
   @Input() searchValue = '';
 
   searchArtist(artist: string) {
-    console.log("clickou")
+    console.log("clickou");
+    this.tracksAndBiography = toSignal(this.apiService.searchSpotify(artist), { injector: this.injector });
+    console.log("SIGNAL -> ", this.tracksAndBiography())
 
-    this.apiService.searchSpotify(artist).subscribe({
-      next: (response: any) => {
-        console.log("SPOTIFY SEARCH ", response);
-        this.searchResults.set(response.tracks.tracks.items);
-        this.artistName.set(response.biography.artist.name);
-        this.artistAlbumCoverUrl.set(response.biography.artist.image[1]["#text"]);
-        this.artistBiography.set(response.biography.artist.bio.content);
-      },
-      error: (error: any) => {
-        console.log("SPOTIFY ERROR ", error);
-      }
-    })
   }
 
 }
+
+/* this.searchResults.set(response.tracks.tracks.items);
+this.artistName.set(response.biography.artist.name);
+this.artistAlbumCoverUrl.set(response.biography.artist.image[1]["#text"]);
+this.artistBiography.set(response.biography.artist.bio.content);
+ */

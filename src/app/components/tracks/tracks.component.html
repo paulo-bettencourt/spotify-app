@@ -1,19 +1,19 @@
 
 <input type="submit" value="submit" (click)="searchArtist(searchValue)">
 
-@if(searchResults()) {
+@if(tracksAndBiography()) {
 @defer {
-    <p>Artists: {{ artistName() }}</p>
-    <img [src]="artistAlbumCoverUrl()" alt="Album Cover" />
-    <p>Biography: {{ artistBiography() }}</p>
+    <p>Artists: {{ tracksAndBiography()?.biography.artist.name }}</p>
+    <img [src]="tracksAndBiography()?.biography.artist.image[1]['#text']" alt="Album Cover" />
+    <p>Biography: {{ tracksAndBiography()?.biography.artist.bio.content }}</p>
 
-    @for (item of searchResults(); track item.id) {
+<!--      @for (item of tracksAndBiography(); track item.id) {
       <ul>
         <li> <a href="{{item.external_urls.spotify}}" target="_blank">{{ item.name }}</a></li>
       </ul>
     } @empty {
       <li> There are no items. </li>
-    }
+    } -->
 
 } @loading (minimum 2s) {
   <h2>Please wait...</h2>
