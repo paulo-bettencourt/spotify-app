@@ -1,10 +1,10 @@
 import { HttpClientModule } from '@angular/common/http';
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, Input, signal } from '@angular/core';
 
 import { ApiService } from '../../services/api.service';
 
 @Component({
-  selector: 'app-tracks',
+  selector: 'spotify-tracks',
   standalone: true,
   imports: [HttpClientModule],
   providers: [ApiService],
@@ -20,20 +20,24 @@ export class TracksComponent {
   artistName = signal<any>('');
   artistAlbumCoverUrl = signal<any>('');
   artistBiography = signal<any>('');
+  searchResults = signal<any>(undefined);
+  @Input() searchValue = '';
 
-  constructor() {
-    this.apiService.getTrackInfo(this.trackId).subscribe({
-      next: (data: any) => {
-        this.trackInfo.set(data);
-        this.artistName.set(data.originalTrackInfo.artists[0].name);
-        this.artistAlbumCoverUrl.set(data.originalTrackInfo.album.images[0].url);
-        this.artistBiography.set(data.artistBiography.artist.bio.content);
-        console.log("MERGE MAP INFO: ", this.trackInfo);
+  searchArtist(artist: string) {
+    console.log("clickou")
+
+    this.apiService.searchSpotify(artist).subscribe({
+      next: (response: any) => {
+        console.log("SPOTIFY SEARCH ", response);
+        this.searchResults.set(response.tracks.tracks.items);
+        this.artistName.set(response.biography.artist.name);
+        this.artistAlbumCoverUrl.set(response.biography.artist.image[1]["#text"]);
+        this.artistBiography.set(response.biography.artist.bio.content);
       },
       error: (error: any) => {
-        console.log("ERROR: ", error)
+        console.log("SPOTIFY ERROR ", error);
       }
-    });
+    })
   }
 
 }

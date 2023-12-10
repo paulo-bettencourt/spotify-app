@@ -1,11 +1,21 @@
 
+<input type="submit" value="submit" (click)="searchArtist(searchValue)">
+
+@if(searchResults()) {
 @defer {
-  @if(trackInfo()) {
     <p>Artists: {{ artistName() }}</p>
     <img [src]="artistAlbumCoverUrl()" alt="Album Cover" />
-    <p>{{ artistBiography() }}</p>
-  }
+    <p>Biography: {{ artistBiography() }}</p>
+
+    @for (item of searchResults(); track item.id) {
+      <ul>
+        <li> <a href="{{item.external_urls.spotify}}" target="_blank">{{ item.name }}</a></li>
+      </ul>
+    } @empty {
+      <li> There are no items. </li>
+    }
+
+} @loading (minimum 2s) {
+  <h2>Please wait...</h2>
 }
-@loading (minimum 2s) {
-  LOADING...
 }

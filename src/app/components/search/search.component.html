@@ -1,9 +1,2 @@
-<input type="search" [value]="searchValue">
-<input type="submit" value="submit" (click)="search(searchValue)">
-<p></p>
-
-@for (item of searchResults; track item.id) {
-  <ul>
-    <li> <a href="{{item.external_urls.spotify}}" target="_blank">{{ item.name }}</a></li>
-  </ul>
-}
+<input type="search" [(ngModel)]="searchValue">
+<spotify-tracks [searchValue]="searchValue"/>

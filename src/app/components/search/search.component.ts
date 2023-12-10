@@ -2,11 +2,12 @@ import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 import { ApiService } from '../../services/api.service';
+import { TracksComponent } from '../tracks/tracks.component';
 
 @Component({
-  selector: 'app-search',
+  selector: 'spotify-search',
   standalone: true,
-  imports: [FormsModule],
+  imports: [FormsModule, TracksComponent],
   providers: [],
   templateUrl: './search.component.html',
   styleUrl: './search.component.scss'

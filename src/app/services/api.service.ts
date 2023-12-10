@@ -72,6 +72,16 @@ export class ApiService {
       mergeMap((response: any) => {
         this.bearerKey = response.access_token;
         return this.http.get(this.url, { headers: this.getHeaders(), params });
+      }),
+      mergeMap((tracksFromRequest: any) => {
+        return this.getArtistBiography(artist).pipe(
+          map((biographyFromRequest: any) => {
+            return {
+              tracks: tracksFromRequest,
+              biography: biographyFromRequest
+            }
+          })
+        )
       })
     );
   }
