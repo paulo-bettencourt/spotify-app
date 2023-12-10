@@ -24,14 +24,5 @@ export class TracksComponent {
   searchArtist(artist: string) {
     console.log("clickou");
     this.tracksAndBiography = toSignal(this.apiService.searchSpotify(artist), { injector: this.injector });
-    console.log("SIGNAL -> ", this.tracksAndBiography())
-
   }
-
 }
-
-/* this.searchResults.set(response.tracks.tracks.items);
-this.artistName.set(response.biography.artist.name);
-this.artistAlbumCoverUrl.set(response.biography.artist.image[1]["#text"]);
-this.artistBiography.set(response.biography.artist.bio.content);
- */
