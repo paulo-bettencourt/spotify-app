@@ -14,12 +14,10 @@ import { ApiService } from '../../services/api.service';
 })
 export class TracksComponent {
 
-  apiService = inject(ApiService);
-  trackId = '3wBy12K7BHKHJspUwJw8fq';
-  playlistId = '12TqMgaZKMw6RF39JK6eeF';
-  private injector = inject(Injector);
-  tracksAndBiography = toSignal(this.apiService.searchSpotify("Madonna"), { injector: this.injector });
   @Input() searchValue = '';
+  apiService = inject(ApiService);
+  injector = inject(Injector);
+  tracksAndBiography = toSignal(this.apiService.searchSpotify("Madonna"), { injector: this.injector });
 
   searchArtist(artist: string) {
     this.tracksAndBiography = toSignal(this.apiService.searchSpotify(artist), { injector: this.injector });

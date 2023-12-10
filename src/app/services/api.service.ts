@@ -2,19 +2,20 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { map, mergeMap, Observable } from 'rxjs';
 
+import { environment } from '../../environments/environment';
+
 @Injectable({
   providedIn: 'root',
 })
 export class ApiService {
   private http = inject(HttpClient);
-  private CLIENT_ID = '50d42786e52940f78987dec2b26a8810';
-  private CLIENT_SECRET = '475518206a27420da2676d6bf240779b';
-  private LAST_FM_API_KEY = '20dd22a56594733b14fecd57de7a42ec';
+  private CLIENT_ID = environment.CLIENT_ID;
+  private CLIENT_SECRET = environment.CLIENT_SECRET;
+  private LAST_FM_API_KEY = environment.LAST_FM_API_KEY;
   private bearerKey!: string;
-  url = 'https://api.spotify.com/v1/search';
 
   getBearerKey() {
-    const url = 'https://accounts.spotify.com/api/token';
+    const url = environment.URL.SPOTIFY_BEARER_KEY;
     const paramsString = new HttpParams()
       .set('grant_type', 'client_credentials')
       .set('client_id', this.CLIENT_ID)
@@ -34,7 +35,7 @@ export class ApiService {
   }
 
   getTrackInfo(trackId: string): Observable<any> {
-    const url = `https://api.spotify.com/v1/tracks/${trackId}`;
+    const url = `${environment.URL.TRACK_INFO}${trackId}`;
 
     return this.getBearerKey().pipe(
       mergeMap((response: any) => {
@@ -55,7 +56,7 @@ export class ApiService {
   }
 
   getArtistBiography(artist: string) {
-    const url = 'https://ws.audioscrobbler.com/2.0/';
+    const url = environment.URL.ARTIST_BIOGRAPHY;
     const params = new HttpParams()
       .set('method', 'artist.getinfo')
       .set('artist', artist)
@@ -66,12 +67,13 @@ export class ApiService {
   }
 
   searchSpotify(artist: string) {
+    const url = environment.URL.SPOTIFY_SEARCH;
     const params = new HttpParams().set('q', artist).set('type', 'track');
 
     return this.getBearerKey().pipe(
       mergeMap((response: any) => {
         this.bearerKey = response.access_token;
-        return this.http.get(this.url, { headers: this.getHeaders(), params });
+        return this.http.get(url, { headers: this.getHeaders(), params });
       }),
       mergeMap((tracksFromRequest: any) => {
         return this.getArtistBiography(artist).pipe(
