@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { Component, inject, Injector, Input } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
@@ -7,7 +8,7 @@ import { ApiService } from '../../services/api.service';
 @Component({
   selector: 'spotify-tracks',
   standalone: true,
-  imports: [HttpClientModule],
+  imports: [HttpClientModule, CommonModule],
   providers: [ApiService],
   templateUrl: './tracks.component.html',
   styleUrl: './tracks.component.scss'

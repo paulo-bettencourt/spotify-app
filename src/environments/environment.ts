@@ -7,6 +7,5 @@ export const environment = {
     'TRACK_INFO': 'https://api.spotify.com/v1/tracks/',
     'SPOTIFY_BEARER_KEY': 'https://accounts.spotify.com/api/token',
     'SPOTIFY_SEARCH': 'https://api.spotify.com/v1/search'
-
   }
 };

@@ -3,14 +3,11 @@
 @if(tracksAndBiography()) {
   @defer {
     <p>Artists: {{ tracksAndBiography()?.biography.artist.name }}</p>
-    <img
-      [src]="tracksAndBiography()?.biography.artist.image[1]['#text']"
-      alt="Album Cover"
-    />
     <div [innerHTML]="tracksAndBiography()?.biography.artist.bio.content"></div>
 
     @for (item of tracksAndBiography()?.tracks.tracks.items; track item.id) {
     <ul>
+      <li><img src="{{item.album.images[0].url}}" alt=""></li>
       <li>
         <a href="{{ item.external_urls.spotify }}" target="_blank">{{
           item.name
