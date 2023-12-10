@@ -18,11 +18,10 @@ export class TracksComponent {
   trackId = '3wBy12K7BHKHJspUwJw8fq';
   playlistId = '12TqMgaZKMw6RF39JK6eeF';
   private injector = inject(Injector);
-  tracksAndBiography = toSignal(this.apiService.searchSpotify("Madonna"));;
+  tracksAndBiography = toSignal(this.apiService.searchSpotify("Madonna"), { injector: this.injector });
   @Input() searchValue = '';
 
   searchArtist(artist: string) {
-    console.log("clickou");
     this.tracksAndBiography = toSignal(this.apiService.searchSpotify(artist), { injector: this.injector });
   }
 }
