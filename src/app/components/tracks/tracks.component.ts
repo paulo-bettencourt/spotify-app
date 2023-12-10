@@ -1,5 +1,5 @@
 import { HttpClientModule } from '@angular/common/http';
-import { AfterViewInit, Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 
 import { ApiService } from '../../services/api.service';
 
@@ -11,34 +11,29 @@ import { ApiService } from '../../services/api.service';
   templateUrl: './tracks.component.html',
   styleUrl: './tracks.component.scss'
 })
-export class TracksComponent implements AfterViewInit {
+export class TracksComponent {
 
   apiService = inject(ApiService);
   trackId = '3wBy12K7BHKHJspUwJw8fq';
-  trackInfo: any;
+  playlistId = '12TqMgaZKMw6RF39JK6eeF';
+  trackInfo = signal<any>(undefined);
+  artistName = signal<any>('');
+  artistAlbumCoverUrl = signal<any>('');
+  artistBiography = signal<any>('');
 
-  ngAfterViewInit() {
+  constructor() {
     this.apiService.getTrackInfo(this.trackId).subscribe({
       next: (data: any) => {
-        this.trackInfo = data;
+        this.trackInfo.set(data);
+        this.artistName.set(data.originalTrackInfo.artists[0].name);
+        this.artistAlbumCoverUrl.set(data.originalTrackInfo.album.images[0].url);
+        this.artistBiography.set(data.artistBiography.artist.bio.content);
         console.log("MERGE MAP INFO: ", this.trackInfo);
       },
       error: (error: any) => {
         console.log("ERROR: ", error)
       }
     });
-  }
-
-  getArtistsNames() {
-    return this.trackInfo.originalTrackInfo.artists[0].name;
-  }
-
-  getAlbumCoverUrl() {
-    return this.trackInfo.originalTrackInfo.album.images[0].url;
-  }
-
-  getArtistBiography() {
-    return this.trackInfo.artistBiography.artist.bio.content;
   }
 
 }

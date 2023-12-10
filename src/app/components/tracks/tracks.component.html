@@ -1,6 +1,11 @@
-@if(trackInfo) {
-<h1>{{ trackInfo.name }}</h1>
-<p>Artists: {{ getArtistsNames() }}</p>
-<img [src]="getAlbumCoverUrl()" alt="Album Cover" />
-<p>{{ getArtistBiography() }}</p>
+
+@defer {
+  @if(trackInfo()) {
+    <p>Artists: {{ artistName() }}</p>
+    <img [src]="artistAlbumCoverUrl()" alt="Album Cover" />
+    <p>{{ artistBiography() }}</p>
+  }
+}
+@loading (minimum 2s) {
+  LOADING...
 }
