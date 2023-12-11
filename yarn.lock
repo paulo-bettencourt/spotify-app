@@ -1340,6 +1340,13 @@
   dependencies:
     call-bind "^1.0.2"
 
+"@ngrx/signals@^17.0.1":
+  version "17.0.1"
+  resolved "https://registry.npmjs.org/@ngrx/signals/-/signals-17.0.1.tgz"
+  integrity sha512-YxnYoDlm0Q0Wighspwg3mgUqnOuIiGP3jvqcr1R/ZMIQ2e0IyzJR2QhtZ1etFxB6NhyDuGtG8FWU2+0cgc0w/w==
+  dependencies:
+    tslib "^2.3.0"
+
 "@ngtools/webpack@17.0.6":
   version "17.0.6"
   resolved "https://registry.npmjs.org/@ngtools/webpack/-/webpack-17.0.6.tgz"
