@@ -1,8 +1,8 @@
-import { BioLengthPipe } from './bio-length.pipe';
+import { TruncatorPipe } from './bio-length.pipe';
 
 describe('BioLengthPipe', () => {
   it('create an instance', () => {
-    const pipe = new BioLengthPipe();
+    const pipe = new TruncatorPipe();
     expect(pipe).toBeTruthy();
   });
 });

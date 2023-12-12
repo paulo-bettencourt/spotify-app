@@ -4,14 +4,14 @@ import { Component, inject, Injector } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { FormsModule } from '@angular/forms';
 
-import { BioLengthPipe } from '../../pipes/bio-length.pipe';
+import { TruncatorPipe } from '../../pipes/bio-length.pipe';
 import { ApiService } from '../../services/api.service';
 import { BiographyAndTracks } from '../../shared/interfaces/tracks-biography.interface';
 
 @Component({
   selector: 'spotify-tracks',
   standalone: true,
-  imports: [HttpClientModule, CommonModule, FormsModule, BioLengthPipe],
+  imports: [HttpClientModule, CommonModule, FormsModule, TruncatorPipe],
   providers: [ApiService],
   templateUrl: './tracks.component.html',
   styleUrl: './tracks.component.scss',
