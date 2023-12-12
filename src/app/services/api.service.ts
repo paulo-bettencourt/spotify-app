@@ -6,6 +6,7 @@ import { environment } from '../../environments/environment.development';
 import { LastFM } from '../models/lastfm.model';
 import { Spotify } from '../models/spotify.model';
 import { Token } from '../models/token.model';
+import { BiographyAndTracks } from '../models/tracks-biography.model';
 
 
 @Injectable({
@@ -49,7 +50,7 @@ export class ApiService {
     return this.http.get<LastFM>(url, { params });
   }
 
-  searchSpotify(artist: string) {
+  searchSpotify(artist: string): Observable<BiographyAndTracks> {
     const url = environment.URL.SPOTIFY_SEARCH;
     const params = new HttpParams().set('q', artist).set('type', 'track');
 
@@ -59,10 +60,8 @@ export class ApiService {
         return this.http.get<Spotify>(url, { headers: this.getHeaders(), params });
       }),
       mergeMap((tracksFromRequest: Spotify) => {
-        console.log("segundo objecto, :", tracksFromRequest);
         return this.getArtistBiography(artist).pipe(
           map((biographyFromRequest: LastFM) => {
-            console.log("terceiro, :", biographyFromRequest);
             return {
               biography: biographyFromRequest,
               tracks: tracksFromRequest
