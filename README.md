@@ -1,6 +1,6 @@
 # Kewl Music
 
-Kewl Music, an Angular app built with version 17, seamlessly integrates Signals and RxJs to deliver an immersive musical experience. Styled with Tailwind CSS and rigorously tested with Jest, the app is not only modern and robust but also dockerized for easy deployment. Beyond its technological prowess, Kewl Music connects users to their favorite artists by leveraging two APIs: LastFm and Spotify. Users can effortlessly explore artist bios and discover top 20 tracks, enriching their musical journey with a dynamic and user-friendly interface.
+Kewl Music, an Angular app built with version 17, seamlessly integrates Signals and RxJS to deliver an immersive musical experience. Styled with Tailwind CSS and rigorously tested with Jest, the app is not only modern and robust but also dockerized for easy deployment. Beyond its technological prowess, Kewl Music connects users to their favorite artists by leveraging two APIs: LastFM and Spotify. Users can effortlessly explore artist bios and discover top 20 tracks, enriching their musical journey with a dynamic and user-friendly interface.
 
 ## Development server
 
@@ -19,6 +19,16 @@ To set up and run the image on Docker, use the following command:
 `docker run -p 80:80 spotify-app`
 
 This command will start a Docker container using the "spotify-app" image and map port 80 on the host to port 80 within the container.
+
+## Technologies Used
+
+- Frontend: Angular v17.0.0
+- Styling: Tailwind v5.2.2
+- Testing: Jest v29.7.0
+- Server-side rendering v17.0.6
+- API: LastFM && Spotify
+- Containerized image: Docker
+- State Management: Signals && RxJS Interop
 
 ## Build
 
