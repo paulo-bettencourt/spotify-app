@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
-import { Component, inject, Injector, Input } from '@angular/core';
+import { Component, inject, Injector } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 
 import { ApiService } from '../../services/api.service';
@@ -15,7 +15,7 @@ import { ApiService } from '../../services/api.service';
 })
 export class TracksComponent {
 
-  @Input() searchValue = '';
+  searchValue = '';
   apiService = inject(ApiService);
   injector = inject(Injector);
   tracksAndBiography = toSignal(this.apiService.searchSpotify("Madonna"), { injector: this.injector });
