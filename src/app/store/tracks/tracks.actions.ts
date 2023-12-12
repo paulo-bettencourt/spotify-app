@@ -1,6 +1,10 @@
-import { createAction, props } from '@ngrx/store';
+import { createActionGroup, props } from '@ngrx/store';
 
-import { Spotify } from '../../shared/interfaces/spotify.interface';
+import { BiographyAndTracks } from '../../shared/interfaces/tracks-biography.interface';
 
-export const getTracks = createAction('[Track Component] biography and tracks', props<{ bioAndTracks: Spotify }>()
-);
+export const BiographyAndTracksApiActions = createActionGroup({
+  source: 'Track Component',
+  events: {
+    'Retrieved Biography And Tracks': props<{ biographyAndtracks: BiographyAndTracks }>(),
+  },
+});

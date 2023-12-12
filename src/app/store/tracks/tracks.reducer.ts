@@ -1,9 +1,24 @@
 import { createReducer, on } from '@ngrx/store';
 
-import { Spotify } from '../../shared/interfaces/spotify.interface';
-import { getTracks } from './tracks.actions';
+import { BiographyAndTracks } from '../../shared/interfaces/tracks-biography.interface';
+import { BiographyAndTracksApiActions } from './tracks.actions';
 
-export const initialState: Spotify = {
+const initialState: BiographyAndTracks = {
+  biography: {
+    artist: {
+      name: '',
+      mbid: '',
+      url: '',
+      image: [],
+      streamable: '',
+      ontour: '',
+      stats: { listeners: '', playcount: '' },
+      similar: { artist: [] },
+      tags: { tag: [] },
+      bio: { links: { link: { "#text": '', rel: '', href: '' } }, published: '', summary: '', content: '' }
+    }
+  },
+  tracks: {
     tracks: {
       href: '',
       items: [],
@@ -13,11 +28,14 @@ export const initialState: Spotify = {
       previous: null,
       total: 0
     }
+  }
 };
 
 export const tracksReducer = createReducer(
   initialState,
-  on(getTracks, (state, { bioAndTracks }) => {
-    return { ...bioAndTracks };
+  on(BiographyAndTracksApiActions.retrievedBiographyAndTracks, (state, { biographyAndtracks }) => {
+    return { ...biographyAndtracks };
   })
 );
+
+

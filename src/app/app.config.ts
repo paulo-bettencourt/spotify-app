@@ -14,6 +14,6 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(
       withFetch(),
     ),
-  provideStore({bioAndTrackstracks: tracksReducer}),
+    provideStore({biographyAndtracks: tracksReducer}),
   ]
 };
