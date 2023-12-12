@@ -3,6 +3,9 @@ import { inject, Injectable } from '@angular/core';
 import { map, mergeMap, Observable } from 'rxjs';
 
 import { environment } from '../../environments/environment.development';
+import { LastFM } from '../models/lastfm.model';
+import { Spotify } from '../models/spotify.model';
+import { Token } from '../models/token.model';
 
 
 @Injectable({
@@ -15,7 +18,7 @@ export class ApiService {
   private LAST_FM_API_KEY = environment.LAST_FM_API_KEY;
   private bearerKey!: string;
 
-  getBearerKey() {
+  getBearerKey(): Observable<Token> {
     const url = environment.URL.SPOTIFY_BEARER_KEY;
     const paramsString = new HttpParams()
       .set('grant_type', 'client_credentials')
@@ -26,7 +29,7 @@ export class ApiService {
       'Content-Type': 'application/x-www-form-urlencoded',
     });
 
-    return this.http.post(url, paramsString, { headers });
+    return this.http.post<Token>(url, paramsString, { headers });
   }
 
   private getHeaders(): HttpHeaders {
@@ -35,28 +38,7 @@ export class ApiService {
     });
   }
 
-  getTrackInfo(trackId: string): Observable<any> {
-    const url = `${environment.URL.TRACK_INFO}${trackId}`;
-
-    return this.getBearerKey().pipe(
-      mergeMap((response: any) => {
-        this.bearerKey = response.access_token;
-        return this.http.get(url, { headers: this.getHeaders() });
-      }),
-      mergeMap((trackInfo: any) => {
-        return this.getArtistBiography(trackInfo.artists[0].name).pipe(
-          map((artistBio: any) => {
-            return {
-              originalTrackInfo: trackInfo,
-              artistBiography: artistBio,
-            };
-          })
-        );
-      })
-    );
-  }
-
-  getArtistBiography(artist: string) {
+  getArtistBiography(artist: string): Observable<LastFM> {
     const url = environment.URL.ARTIST_BIOGRAPHY;
     const params = new HttpParams()
       .set('method', 'artist.getinfo')
@@ -64,7 +46,7 @@ export class ApiService {
       .set('api_key', this.LAST_FM_API_KEY)
       .set('format', 'json');
 
-    return this.http.get(url, { params });
+    return this.http.get<LastFM>(url, { params });
   }
 
   searchSpotify(artist: string) {
@@ -72,16 +54,18 @@ export class ApiService {
     const params = new HttpParams().set('q', artist).set('type', 'track');
 
     return this.getBearerKey().pipe(
-      mergeMap((response: any) => {
+      mergeMap((response: Token) => {
         this.bearerKey = response.access_token;
-        return this.http.get(url, { headers: this.getHeaders(), params });
+        return this.http.get<Spotify>(url, { headers: this.getHeaders(), params });
       }),
-      mergeMap((tracksFromRequest: any) => {
+      mergeMap((tracksFromRequest: Spotify) => {
+        console.log("segundo objecto, :", tracksFromRequest);
         return this.getArtistBiography(artist).pipe(
-          map((biographyFromRequest: any) => {
+          map((biographyFromRequest: LastFM) => {
+            console.log("terceiro, :", biographyFromRequest);
             return {
-              tracks: tracksFromRequest,
-              biography: biographyFromRequest
+              biography: biographyFromRequest,
+              tracks: tracksFromRequest
             }
           })
         )
