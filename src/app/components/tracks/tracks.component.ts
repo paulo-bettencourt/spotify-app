@@ -3,7 +3,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { Component, inject, Injector } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { FormsModule } from '@angular/forms';
-import { Store } from '@ngrx/store';
 
 import { ApiService } from '../../services/api.service';
 import { BiographyAndTracks } from '../../shared/interfaces/tracks-biography.interface';
@@ -19,7 +18,6 @@ import { BiographyAndTracks } from '../../shared/interfaces/tracks-biography.int
 export class TracksComponent {
   apiService = inject(ApiService);
   injector = inject(Injector);
-  store = inject(Store);
   searchValue!: string;
   tracksAndBiography = toSignal<BiographyAndTracks>(
     this.apiService.searchSpotify("Madonna"),
