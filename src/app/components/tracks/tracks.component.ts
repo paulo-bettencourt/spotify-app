@@ -4,8 +4,8 @@ import { Component, inject, Injector } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { FormsModule } from '@angular/forms';
 
-import { BiographyAndTracks } from '../../models/tracks-biography.model';
 import { ApiService } from '../../services/api.service';
+import { BiographyAndTracks } from '../../shared/interfaces/tracks-biography.interface';
 
 @Component({
   selector: 'spotify-tracks',

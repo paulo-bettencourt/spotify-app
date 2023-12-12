@@ -3,10 +3,10 @@ import { inject, Injectable } from '@angular/core';
 import { map, mergeMap, Observable } from 'rxjs';
 
 import { environment } from '../../environments/environment.development';
-import { LastFM } from '../models/lastfm.model';
-import { Spotify } from '../models/spotify.model';
-import { Token } from '../models/token.model';
-import { BiographyAndTracks } from '../models/tracks-biography.model';
+import { LastFM } from '../shared/interfaces/lastfm.interface';
+import { Spotify } from '../shared/interfaces/spotify.interface';
+import { Token } from '../shared/interfaces/token.interface';
+import { BiographyAndTracks } from '../shared/interfaces/tracks-biography.interface';
 
 
 @Injectable({
