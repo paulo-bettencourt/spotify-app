@@ -6,6 +6,20 @@ Kewl Music, an Angular app built with version 17, seamlessly integrates Signals 
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
 
+## Docker
+
+To create a containerized image of the app in Docker, execute the following command:
+
+`docker build -t spotify-app .`
+
+This command will build the Docker image with the tag "spotify-app" based on the Dockerfile in the current directory.
+
+To set up and run the image on Docker, use the following command:
+
+`docker run -p 80:80 spotify-app`
+
+This command will start a Docker container using the "spotify-app" image and map port 80 on the host to port 80 within the container.
+
 ## Build
 
 Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
@@ -13,7 +27,3 @@ Run `ng build` to build the project. The build artifacts will be stored in the `
 ## Running unit tests
 
 Run `ng test` to execute the unit tests via [Jest].
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
