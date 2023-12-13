@@ -8,8 +8,10 @@
     "test": "jest --verbose",
     "test:watch": "jest --watch",
     "test:ci": "jest --runInBand",
+    "test:coverage:html": "jest --coverage --coverageReporters=html",
     "test:coverage": "jest --coverage",
-    "serve:ssr:spotify-app": "node dist/spotify-app/server/server.mjs"
+    "serve:ssr:spotify-app": "node dist/spotify-app/server/server.mjs",
+    "cache": "jest --clearCache"
   },
   "private": true,
   "dependencies": {
