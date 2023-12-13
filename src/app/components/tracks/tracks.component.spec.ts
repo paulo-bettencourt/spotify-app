@@ -21,4 +21,11 @@ describe('TracksComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should search the artist', () => {
+    const spySearchArtists = jest.spyOn(component, 'searchArtist');
+    const mockArtist = "Madonna";
+    component.searchArtist(mockArtist);
+    expect(spySearchArtists).toHaveBeenCalled();
+  });
 });

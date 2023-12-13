@@ -1,6 +1,6 @@
 import 'jest';
 
-import { HttpClient, HttpHandler } from '@angular/common/http';
+import { HttpClient, HttpHandler, HttpHeaders } from '@angular/common/http';
 import { TestBed } from '@angular/core/testing';
 
 import { ApiService } from './api.service';
@@ -17,5 +17,14 @@ describe('ApiService', () => {
 
   it('should be created', () => {
     expect(service).toBeTruthy();
+  });
+
+  it('should get an instance of Http Headers', () => {
+    //@ts-expect-error
+    const spyServiceGetHeaders = jest.spyOn(service, 'getHeaders');
+    //@ts-expect-error
+    const headersResult = service.getHeaders();
+    expect(spyServiceGetHeaders).toHaveBeenCalled();
+    expect(headersResult).toBeInstanceOf(HttpHeaders);;
   });
 });

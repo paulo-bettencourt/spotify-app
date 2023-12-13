@@ -4,7 +4,7 @@ import { Component, inject, Injector } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { FormsModule } from '@angular/forms';
 
-import { TruncatorPipe } from '../../pipes/bio-length.pipe';
+import { TruncatorPipe } from '../../pipes/truncator';
 import { ApiService } from '../../services/api.service';
 import { BiographyAndTracks } from '../../shared/interfaces/tracks-biography.interface';
 
