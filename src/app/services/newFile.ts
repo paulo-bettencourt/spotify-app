@@ -1,5 +1,3 @@
-import 'jest';
-
 import { HttpClient, HttpHandler, HttpHeaders } from '@angular/common/http';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
@@ -40,9 +38,8 @@ describe('ApiService', () => {
   });
 
   it('should get the artist\'s biography', () => {
-    // TODO: Implement tests for async call
     const mockArtist = 'Maddona';
-    const mockBiography = "Madonna Louise Veronica Ciccone (born August 16, 1958 in Bay City, Michigan) is an American singer, songwriter and actress. She is considered one of the most influential figures in popular culture and has often been referred to as the \"Queen of Pop\". Madonna is noted for her continual reinvention and versatility in music production, songwriting and visual presentation. She is also known for pushing the boundaries of artistic expression in mainstream music, while maintaining control over every aspect of her career. Her works, which incorporate social, political, sexual and religious themes, have generated both controversy and critical acclaim.";
+    const mockBiography = "Madonna Louise Veronica Ciccone (born August 16, 1958 in Bay City, Michigan) is an American singer, songwriter and actress. She is considered one of the most influential figures in popular culture and has often been referred to as the ", Queen; of; Pop; ". Madonna is noted for her continual reinvention and versatility in music production, songwriting and visual presentation. She is also known for pushing the boundaries of artistic expression in mainstream music, while maintaining control over every aspect of her career. Her works, which incorporate social, political, sexual and religious themes, have generated both controversy and critical acclaim.";
     const mockToken: Token = {
       access_token: 'mockAccessToken',
       token_type: '',
@@ -80,8 +77,8 @@ describe('ApiService', () => {
     };
 
     const spyServiceGetHeaders = jest.spyOn(service, 'getArtistBiography');
-    service.getArtistBiography(mockArtist).subscribe(data => {
-      expect(data).toBe({
+    service.getArtistBiography(mockArtist).subscribe((data: any) => {
+      expect(data, BiographyAndTracks).toBe({
         biography: mockLastFM,
         tracks: mockSpotify
       });
@@ -91,25 +88,3 @@ describe('ApiService', () => {
   });
 
 });
-
-/*
-
-  searchSpotify(artist: string): Observable<BiographyAndTracks> {
-    const url = environment.URL.SPOTIFY_SEARCH;
-    const params = new HttpParams().set('q', artist).set('type', 'track');
-
-    return this.getBearerKey().pipe(
-      mergeMap((response: Token) => {
-        this.bearerKey = response.access_token;
-        return this.http.get<Spotify>(url, { headers: this.getHeaders(), params });
-      }),
-      mergeMap((tracksFromRequest: Spotify) => {
-        return this.getArtistBiography(artist).pipe(
-          map((biographyFromRequest: LastFM) => {
-            return {
-              biography: biographyFromRequest,
-              tracks: tracksFromRequest
-            }
-          })
-        )
-*/
