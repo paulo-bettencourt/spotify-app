@@ -1,3 +1,5 @@
+import 'jest';
+
 import { HttpClient, HttpHandler } from '@angular/common/http';
 import { TestBed } from '@angular/core/testing';
 
