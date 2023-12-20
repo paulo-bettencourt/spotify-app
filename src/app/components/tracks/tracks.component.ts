@@ -12,7 +12,6 @@ import { BiographyAndTracks } from '../../shared/interfaces/tracks-biography.int
   selector: 'spotify-tracks',
   standalone: true,
   imports: [HttpClientModule, CommonModule, FormsModule, TruncatorPipe],
-  providers: [ApiService],
   templateUrl: './tracks.component.html',
   styleUrl: './tracks.component.scss',
 })
